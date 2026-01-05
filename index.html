@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Triage</title>
+    <link rel="stylesheet" href="Style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Triage <br> System</h1>
+
+      <div id="legend">
+        <p class="critical">Critical</p>
+        <p class="high">High</p>
+        <p class="medium">Medium</p>
+        <p class="low">Low</p>
+      </div>
+      <div id="fill-up" style="display: flex; 
+      justify-content: center;
+      gap: 250px; background-color:#EDEDED; padding: 30px; border-radius: 10px;">
+        <!-- Left column -->
+        <div class="form-column">
+          <div class="form-group">
+            <label for="requestType">Request Type</label>
+            <select id="requestType">
+              <option value="Transcript of Records (TOR)">Transcript of Records
+                (TOR)</option>
+              <option value="Certificate of Enrollment">Certificate of
+                Enrollment</option>
+              <option value="Graduation Clearance">Graduation Clearance</option>
+              <option value="Subject Correction">Subject Correction</option>
+              <option value="Enrollment Issue">Enrollment Issue</option>
+              <option value="Record Correction">Record Correction</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="purpose">Purpose of Request</label>
+            <select id="purpose">
+              <option value="Graduation">Graduation</option>
+              <option value="Board Examination">Board Examination</option>
+              <option value="Transfer to another school">Transfer to another
+                school</option>
+              <option value="Scholarship">Scholarship</option>
+              <option value="Personal use">Personal use</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="deadline">Deadline</label>
+            <select id="deadline">
+              <option value="Today/1-2 days">Today/1-2 days</option>
+              <option value="Within a week">Within a week</option>
+              <option value="No deadline">No deadline</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="academicImpact">Academic Impact Level</label>
+            <select id="academicImpact">
+              <option value="Blocks Graduation">Blocks Graduation</option>
+              <option value="Blocks Enrollment">Blocks Enrollment</option>
+              <option value="Affects Subject Completion">Affects Subject
+                Completion</option>
+              <option value="No Immediate Impact">No Immediate Impact</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div class="form-column">
+          <div class="form-group">
+            <label for="studentStatus">Student Status</label>
+            <select id="studentStatus">
+              <option value="Graduating Student">Graduating Student</option>
+              <option value="Currently Enrolled">Currently Enrolled</option>
+              <option value="Incoming Freshman">Incoming Freshman</option>
+              <option value>Alumni</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="numStudents">Number of Students Affected</label>
+            <select id="numStudents">
+              <option value="Individual Request (1 student)">Individual Request
+                (1 student)</option>
+              <option value="Group Request">Group Request</option>
+              <option value="Program-wide Range">Program-wide Range</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="requirements">Completeness of Requirements</label>
+            <select id="requirements">
+              <option value="Complete">Complete</option>
+              <option value="Incomplete">Incomplete</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="submission">Mode of Submission</label>
+            <select id="submission">
+              <option value="Online Portal">Online Portal</option>
+              <option value="Walk-in">Walk-in</option>
+              <option value="Faculty Endorsement">Faculty Endorsement</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex;justify-content: flex-end;"><button
+          onclick="displayLegend()">
+          Submit</button></div>
+      
+     <div class="result-wrapper">
+  <div id="AssignedLegend">
+    <p id="legendResultText">Result</p>
+    <button id="printLegend" onclick="printColor()">print</button>
+  </div>
+</div>
+    </body>
+    <script>
+      const purpose = document.getElementById("purpose");
+const impact = document.getElementById("academicImpact");
+const deadline = document.getElementById("deadline");
+const button = document.getElementById("button");
+const requirements= document.getElementById("requirements");
+const modal=document.getElementById("AssignedLegend");
+const innerText=document.getElementById("legendResultText");
+
+
+function displayLegend() {
+  if (
+    (purpose.value === "Graduation" || purpose.value === "Board Examination") &&
+    impact.value === "Blocks Graduation" &&
+    deadline.value === "Today/1-2 days" && requirements.value==="Complete"
+  ) {
+    innerText.textContent="CRIRTICAL";
+    modal.style.backgroundColor = "red";
+    modal.style.display="block";
+  }
+ else if (purpose.value==="Scholarship"&& 
+  requirements.value==="Complete" && 
+  deadline.value==="Within a week" && 
+  impact.value==="Affects Subject Completion") 
+  {
+    innerText.textContent="HIGH";
+    modal.style.backgroundColor = "orange";
+    modal.style.display="block";
+  }
+   else if(purpose.value==="Personal use"&&
+    requirements.value==="Complete" &&
+     deadline.value==="Within a week" && 
+     impact.value==="Affects Subject Completion")
+     {
+    innerText.textContent="MEDIUM";
+    modal.style.backgroundColor = "yellow";
+    modal.style.display="block";
+  }
+  else{
+    innerText.textContent="LOW";
+    modal.style.backgroundColor = "green";
+    modal.style.display="block";
+  }
+
+
+}
+function printColor(){
+  modal.style.display="none";
+}
+
+      
+</script>
+  </html>
